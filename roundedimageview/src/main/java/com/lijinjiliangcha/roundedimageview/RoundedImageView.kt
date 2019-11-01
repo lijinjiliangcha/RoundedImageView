@@ -3,6 +3,7 @@ package com.lijinjiliangcha.roundedimageview
 import android.content.Context
 import android.content.res.TypedArray
 import android.graphics.Canvas
+import android.graphics.Color
 import android.graphics.Path
 import android.util.AttributeSet
 import android.widget.ImageView
@@ -27,11 +28,11 @@ class RoundedImageView : ImageView {
         scaleType = ScaleType.CENTER_CROP
         typedArray.recycle()
 
-        paint.color = 0xFFFFFFFF.toInt()
+        paint.color = Color.TRANSPARENT
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
-//        LogUtils.i("测试", "onSizeChanged : w = $w ，h = $h，radius = $radius")
+        //当控件大小改变时重新获取path
         when (roundedStyle) {
             RoundedStyle.ARC.value -> onArc(w, h)
             RoundedStyle.CIRCULAR.value -> onCircular(w, h)
@@ -70,8 +71,6 @@ class RoundedImageView : ImageView {
 
     private fun onOval(w: Int, h: Int) {
         path = Path()
-        val cx = w.toFloat() / 2
-        val cy = h.toFloat() / 2
         path?.addOval(0f, 0f, w.toFloat(), h.toFloat(), Path.Direction.CW)
     }
 
@@ -82,6 +81,10 @@ class RoundedImageView : ImageView {
         super.onDraw(canvas)
     }
 
+    /**
+     * 设定圆弧弧度
+     * @param dp 弧度单位为dp
+     */
     fun setRadius(dp: Int) {
         if (dp < 0)
             return
@@ -89,14 +92,23 @@ class RoundedImageView : ImageView {
         invalidate()
     }
 
+    /**
+     * 设定圆弧弧度
+     * @param px 弧度单位为px
+     */
     fun setRadius(px: Float) {
         if (px < 0)
             return
         this.radius = px
     }
 
+    /**
+     * 设置圆弧风格
+     * @param style 圆弧风格枚举类
+     */
     fun setRoundedStyle(style: RoundedStyle) {
         this.roundedStyle = style.value
+        onSizeChanged(width, height, width, height)
         invalidate()
     }
 
@@ -106,8 +118,8 @@ class RoundedImageView : ImageView {
     }
 
     enum class RoundedStyle(val value: Int) {
-        ARC(0),
-        CIRCULAR(1),
-        OVAL(2)
+        ARC(0),//圆弧
+        CIRCULAR(1),//圆形
+        OVAL(2)//椭圆
     }
 }
