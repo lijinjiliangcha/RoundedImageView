@@ -20,13 +20,40 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.lijinjiliangcha.roundedimageview.RoundedImageView
+            android:id="@+id/riv_arc"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginTop="10dp"
             android:src="#f00"
             app:layout_constraintLeft_toLeftOf="@+id/tv_arc"
             app:layout_constraintTop_toBottomOf="@+id/tv_arc"
-            app:radius="50dp" />
+            app:radius="10dp" />
+
+        <TextView
+            android:id="@+id/tv_circular"
+            style="@style/textStyle"
+            android:layout_marginTop="10dp"
+            android:text="圆形："
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/riv_arc" />
+
+        <com.lijinjiliangcha.roundedimageview.RoundedImageView
+            android:id="@+id/riv_circular"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="10dp"
+            android:src="#f00"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_circular"
+            app:layout_constraintTop_toBottomOf="@+id/tv_circular"
+            app:radius="50dp"
+            app:roundedStyle="circular" />
+
+        <!--        <androidx.constraintlayout.widget.Barrier-->
+        <!--            android:layout_width="20dp"-->
+        <!--            android:layout_height="match_parent"-->
+        <!--            android:orientation="vertical"-->
+        <!--            app:barrierDirection="right"-->
+        <!--            app:constraint_referenced_ids="tv_arc,riv_arc" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

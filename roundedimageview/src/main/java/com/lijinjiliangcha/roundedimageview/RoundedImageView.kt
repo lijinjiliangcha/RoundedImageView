@@ -16,17 +16,14 @@ class RoundedImageView : ImageView {
     private var radius: Float = 0f
 
     private val paint: Paint = Paint()
+    private var roundedStyle: Int = 0
 
     constructor(context: Context) : this(context, null)
     constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
-        context,
-        attrs,
-        defStyleAttr
-    ) {
-        val typedArray: TypedArray =
-            context.obtainStyledAttributes(attrs, R.styleable.RoundedImageView)
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
+        val typedArray: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.RoundedImageView)
         radius = typedArray.getDimension(R.styleable.RoundedImageView_radius, 0f)
+        roundedStyle = typedArray.getInt(R.styleable.RoundedImageView_roundedStyle, RoundedStyle.ARC.value)
         scaleType = ScaleType.CENTER_CROP
         typedArray.recycle()
 
@@ -34,8 +31,14 @@ class RoundedImageView : ImageView {
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
-        super.onSizeChanged(w, h, oldw, oldh)
 //        LogUtils.i("测试", "onSizeChanged : w = $w ，h = $h，radius = $radius")
+        when (roundedStyle) {
+            RoundedStyle.ARC.value -> onArc(w, h)
+            RoundedStyle.CIRCULAR.value -> onCircular(w, h)
+        }
+    }
+
+    private fun onArc(w: Int, h: Int) {
         if (radius == 0f) {
             path = null
             return
@@ -55,7 +58,13 @@ class RoundedImageView : ImageView {
         path?.lineTo(0f, radius)
         //左上角圆弧
         path?.quadTo(0f, 0f, radius, 0f)
+    }
 
+    private fun onCircular(w: Int, h: Int) {
+        path = Path()
+        val cx = w.toFloat() / 2
+        val cy = h.toFloat() / 2
+        path?.addCircle(cx, cy, if (cx > cy) cy else cx, Path.Direction.CW)
     }
 
     override fun onDraw(canvas: Canvas?) {
@@ -79,7 +88,7 @@ class RoundedImageView : ImageView {
     }
 
     fun setRoundedStyle(style: RoundedStyle) {
-
+        this
     }
 
     private fun dip2px(dpValue: Int): Float {
@@ -87,7 +96,7 @@ class RoundedImageView : ImageView {
         return dpValue * scale + 0.5f
     }
 
-    enum class RoundedStyle(value: Int) {
+    enum class RoundedStyle(val value: Int) {
         ARC(0),
         CIRCULAR(1)
     }

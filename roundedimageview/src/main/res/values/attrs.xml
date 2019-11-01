@@ -3,6 +3,10 @@
 
     <declare-styleable name="RoundedImageView">
         <attr name="radius" format="dimension" />
+        <attr name="roundedStyle" format="enum">
+            <enum name="arc" value="0" />
+            <enum name="circular" value="1" />
+        </attr>
     </declare-styleable>
 
 </resources>
