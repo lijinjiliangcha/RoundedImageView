@@ -6,6 +6,7 @@
         <attr name="roundedStyle" format="enum">
             <enum name="arc" value="0" />
             <enum name="circular" value="1" />
+            <enum name="oval" value="2" />
         </attr>
     </declare-styleable>
 

@@ -35,6 +35,7 @@ class RoundedImageView : ImageView {
         when (roundedStyle) {
             RoundedStyle.ARC.value -> onArc(w, h)
             RoundedStyle.CIRCULAR.value -> onCircular(w, h)
+            RoundedStyle.OVAL.value -> onOval(w, h)
         }
     }
 
@@ -67,6 +68,13 @@ class RoundedImageView : ImageView {
         path?.addCircle(cx, cy, if (cx > cy) cy else cx, Path.Direction.CW)
     }
 
+    private fun onOval(w: Int, h: Int) {
+        path = Path()
+        val cx = w.toFloat() / 2
+        val cy = h.toFloat() / 2
+        path?.addOval(0f, 0f, w.toFloat(), h.toFloat(), Path.Direction.CW)
+    }
+
     override fun onDraw(canvas: Canvas?) {
         if (path != null) {
             canvas?.clipPath(path!!)
@@ -88,7 +96,8 @@ class RoundedImageView : ImageView {
     }
 
     fun setRoundedStyle(style: RoundedStyle) {
-        this
+        this.roundedStyle = style.value
+        invalidate()
     }
 
     private fun dip2px(dpValue: Int): Float {
@@ -98,6 +107,7 @@ class RoundedImageView : ImageView {
 
     enum class RoundedStyle(val value: Int) {
         ARC(0),
-        CIRCULAR(1)
+        CIRCULAR(1),
+        OVAL(2)
     }
 }
