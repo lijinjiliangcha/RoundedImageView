@@ -12,6 +12,8 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
+        //此处添加代码
+        classpath 'com.novoda:bintray-release:0.9.1'
     }
 }
 
@@ -20,6 +22,11 @@ allprojects {
         google()
         jcenter()
 
+    }
+
+    //此处添加代码
+    tasks.withType(Javadoc).all {
+        enabled = false
     }
 }
 

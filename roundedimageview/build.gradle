@@ -1,10 +1,9 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.novoda.bintray-release'
 android {
     compileSdkVersion 29
-
-
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 29
@@ -22,6 +21,9 @@ android {
         }
     }
 
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
@@ -32,4 +34,18 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+}
+
+publish {
+    //bintray.com用户名
+    userOrg = 'lijinjiliangcha'
+    //这个自己可以自己随便写，这是导入依赖库的名称
+    groupId = 'com.lijinjiliangcha'
+    //项目名称，创建Package的那个名称
+    artifactId = 'RoundedImageView'
+    //版本号
+    publishVersion = '1.0.1'
+    //说明
+    desc = 'RoundedImageView'
+    website = 'https://github.com/lijinjiliangcha/RoundedImageView'
 }
