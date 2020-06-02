@@ -1,7 +1,7 @@
 # RoundedImageView
 一个圆角ImageView
 
-implementation 'com.lijinjiliangcha:RoundedImageView:1.0.1'
+implementation 'com.lijinjiliangcha:RoundedImageView:1.0.2'
 
 ```
 <com.lijinjiliangcha.roundedimageview.RoundedImageView
