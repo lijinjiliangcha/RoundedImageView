@@ -44,7 +44,7 @@ publish {
     //项目名称，创建Package的那个名称
     artifactId = 'RoundedImageView'
     //版本号
-    publishVersion = '1.0.1'
+    publishVersion = '1.0.2'
     //说明
     desc = 'RoundedImageView'
     website = 'https://github.com/lijinjiliangcha/RoundedImageView'
